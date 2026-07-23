@@ -4,10 +4,18 @@ const {connectToMongoDB} = require('./connect');
 const urlRoute = require('./routes/url');
 const URL = require('./models/url');
 const app = express();
-const PORT = 8000;
 
-connectToMongoDB('mongodb://localhost:27017/short-url').then(()=>console.log("mongodb Connected"));
+const dns = require("dns");
+dns.setServers([
+    '8.8.8.1','1.1.1.1'
+]);
 
+require("dotenv").config();
+
+connectToMongoDB(process.env.MONGO_URI).then(()=>console.log("mongodb Connected"));
+
+
+const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use('/url',urlRoute);
