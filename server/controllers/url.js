@@ -11,7 +11,7 @@ export async function handleGenerateNewShortURL(req, res) {
         });
     }
 
-    const shortID = nanoid(8);
+    const shortID = nanoid(4);
 
     await URL.create({
         shortId: shortID,
