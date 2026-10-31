@@ -61,7 +61,7 @@ app.get("/:shortId", async (req, res) => {
           },
         },
       },
-      { new: true }
+      { returnDocument: "after" }
     );
 
     if (!entry) {
