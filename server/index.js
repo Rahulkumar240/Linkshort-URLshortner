@@ -13,22 +13,26 @@ import URL from "./models/url.js";
 const app = express();
 
 // CORS configuration
+// CORS configuration
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://linkly-urlshortner.vercel.app",
   process.env.CLIENT_URL,
 ].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests without an Origin header (e.g. server-side tools)
       if (!origin || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      return callback(new Error("Not allowed by CORS"));
+      console.log("Blocked CORS origin:", origin);
+      return callback(null, false);
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
